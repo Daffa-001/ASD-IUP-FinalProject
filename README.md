@@ -1,4 +1,4 @@
-# ASD Final Projecy
+# ASD Final Project
 Final Project: (deskripsi fp)
 
 # Group 4 Members
