@@ -35,25 +35,44 @@ public class DecisionTreeSystem {
     public void startDecisionProcess() {
         DecisionNode current = root;
 
-        // ... (Previous tree traversal while loop) ...
-        // Assume we have exited the loop and 'current' is a leaf node
+        // ============================
+        // TRAVERSAL LOOP
+        // ============================
+        while (!current.isLeaf) {
+            System.out.println("\n" + current.text);
+            System.out.print("Enter yes/no: ");
 
+            String input = scanner.nextLine().trim().toLowerCase();
+
+            if (input.equals("yes") || input.equals("y")) {
+                current = current.yesBranch;
+            } else if (input.equals("no") || input.equals("n")) {
+                current = current.noBranch;
+            } else {
+                System.out.println("[!] Invalid input. Please type YES or NO.");
+            }
+        }
+
+        // ============================
+        // LEAF REACHED → SHOW RESULT
+        // ============================
         System.out.println("\n=================================");
         System.out.println(current.text);
         System.out.println("=================================");
 
-        // CHECK if the decision implies Cooking
-        // We check if the result string contains the word "Cook"
+        // ============================
+        // CASE 1: COOK
+        // ============================
         if (current.text.contains("Cook")) {
             System.out.println("\n[SYSTEM] Loading Recipe Database...");
             RecipeManager manager = new RecipeManager();
 
-            // 1. SORTING DEMO
+            // Sort recipes
             System.out.println("[SYSTEM] Sorting recipes by quickest time (Merge Sort)...");
             manager.sortRecipesByTime();
             manager.showRecipes();
 
-            // 2. SEARCHING DEMO (New Feature)
+            // Search option
             System.out.println("\nWould you like to filter recipes by ingredient? (y/n)");
             System.out.print("> ");
             String choice = scanner.nextLine().trim().toLowerCase();
@@ -61,36 +80,24 @@ public class DecisionTreeSystem {
             if (choice.equals("y")) {
                 System.out.print("Enter keyword (e.g., 'Egg', 'Rice'): ");
                 String keyword = scanner.nextLine().trim();
-
-                // Call the Linear Search
                 manager.filterRecipes(keyword);
             }
 
             System.out.println("\n[SYSTEM] Good luck with your meal!");
         }
-        System.out.println("\n[SYSTEM] Loading Recipe Database...");
-        RecipeManager manager = new RecipeManager();
 
-        System.out.println("[SYSTEM] Sorting recipes by quickest time (Merge Sort)...");
-        manager.sortRecipesByTime();
+        // ============================
+        // CASE 2: BUY FOOD
+        // ============================
+        else if (current.text.contains("Buy")) {
+            System.out.println("\n[SYSTEM] Finding nearby options...");
+            RestaurantManager restManager = new RestaurantManager();
 
-        manager.showRecipes();
-    }
+            System.out.println("[SYSTEM] Sorting restaurants by Price (Selection Sort)...");
+            restManager.sortByPrice();
+            restManager.showRestaurants();
 
-    // Optional: Add logic for "Buy" to show Restaurants
-    // ... inside startDecisionProcess() ...
-
-    else if (current.text.contains("Buy")) {
-        System.out.println("[SYSTEM] Result is 'BUY'. Finding options...");
-
-        RestaurantManager restManager = new RestaurantManager();
-
-        // Use Selection Sort to show cheapest options first
-        System.out.println("[SYSTEM] Sorting restaurants by Price (Selection Sort)...");
-        restManager.sortByPrice();
-
-        restManager.showRestaurants();
-
-        System.out.println("\n[SYSTEM] Enjoy your meal!");
+            System.out.println("\n[SYSTEM] Enjoy your meal!");
+        }
     }
 }
