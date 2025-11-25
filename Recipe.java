@@ -1,17 +1,22 @@
 public class Recipe {
     String name;
-    int prepTime; // in minutes
+    int prepTime;       // in minutes
     String difficulty;
+    String ingredients; // <--- NEW FIELD
 
-    public Recipe(String name, int prepTime, String difficulty) {
+    public Recipe(String name, int prepTime, String difficulty, String ingredients) {
         this.name = name;
         this.prepTime = prepTime;
         this.difficulty = difficulty;
+        this.ingredients = ingredients;
     }
 
-    // formatting for clean console output
     @Override
     public String toString() {
-        return String.format("%-25s | %d mins | %s", name, prepTime, difficulty);
+        // Formats the output:
+        // Name | Time | Difficulty
+        //    > Ingredients: ...
+        return String.format("%-20s | %d mins | %-8s\n   > Ingredients: %s",
+                name, prepTime, difficulty, ingredients);
     }
 }
