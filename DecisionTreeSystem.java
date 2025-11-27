@@ -1,13 +1,28 @@
 import java.util.Scanner;
 
 public class DecisionTreeSystem {
+
     DecisionNode root;
     Scanner scanner = new Scanner(System.in);
+    String userLocation; // <-- Pastikan field ini ada di sini!
 
     public DecisionTreeSystem() {
+        // Panggil buildTree() di constructor untuk menginisialisasi root
         buildTree();
     }
 
+    // --- 1. METHOD INPUT LOKASI ---
+    private void askUserLocation() {
+        System.out.println("=========================================");
+        System.out.println("Selamat datang di Decision Helper!");
+        System.out.println("Di wilayah manakah Anda berada saat ini?");
+        System.out.println("(Pilihan: BARAT / PUSAT / TIMUR)");
+        System.out.print("> ");
+        // userLocation diisi dari input Scanner
+        userLocation = scanner.nextLine().trim().toUpperCase();
+    }
+
+    // --- 2. METHOD BUILD TREE (Harus terpisah) ---
     private void buildTree() {
         // LEAF NODES (Final Answers)
         DecisionNode buyFood = new DecisionNode("RECOMMENDATION: Buy Food (Delivery/Takeout)");
@@ -21,14 +36,18 @@ public class DecisionTreeSystem {
         DecisionNode checkBudget = new DecisionNode("Is the budget tight right now?", cookSimple, buyFood);
         DecisionNode checkTime = new DecisionNode("Is it late at night (past 7 PM)?", buyFood, checkBudget);
 
-        // ROOT NODE
+        // ROOT NODE: Inisialisasi root harus di dalam method ini
         root = new DecisionNode("Is your energy level above 50% (Feeling fit)?", checkIngredients, checkTime);
     }
 
+    // --- 3. METHOD START PROCESS (MAIN CONTROLLER) ---
     public void startDecisionProcess() {
+        // Panggil input lokasi di awal
+        askUserLocation();
+
         DecisionNode current = root;
 
-        System.out.println("=== MOM'S DECISION HELPER ===");
+        System.out.println("\n=== MOM'S DECISION HELPER ===");
         System.out.println("Answer with 'yes' or 'no'.\n");
 
         // --- TREE TRAVERSAL ---
@@ -37,7 +56,7 @@ public class DecisionTreeSystem {
             System.out.print("> ");
             String input = scanner.nextLine().trim().toLowerCase();
 
-            // FIX: Accept both "y" and "yes"
+            // Check input
             if (input.startsWith("y")) {
                 current = current.yesBranch;
             } else if (input.startsWith("n")) {
@@ -51,7 +70,7 @@ public class DecisionTreeSystem {
         System.out.println(current.text);
         System.out.println("=================================");
 
-        // --- INTEGRATION: COOK (Tree + Sorting + Searching) ---
+        // --- INTEGRATION: COOK (Merge Sort & Linear Search) ---
         if (current.text.contains("Cook")) {
             System.out.println("\n[SYSTEM] Loading Recipe Database...");
             RecipeManager manager = new RecipeManager();
@@ -61,29 +80,25 @@ public class DecisionTreeSystem {
             manager.sortRecipesByTime();
             manager.showRecipes();
 
-            // 2. SEARCHING (Linear Search) - THE PART THAT WAS SKIPPED
+            // 2. SEARCHING (Linear Search)
             System.out.println("\nWould you like to filter recipes by ingredient? (yes/no)");
             System.out.print("> ");
             String choice = scanner.nextLine().trim().toLowerCase();
 
-            // FIX: Changed .equals("y") to .startsWith("y") to handle "yes"
             if (choice.startsWith("y")) {
                 System.out.print("Enter keyword (e.g., 'Egg', 'Chicken'): ");
-                String keyword = scanner.nextLine().trim(); // Capture user input
-
-                // Call the filter method
+                String keyword = scanner.nextLine().trim();
                 manager.filterRecipes(keyword);
             }
         }
 
-        // --- INTEGRATION: BUY (Tree + Selection Sort) ---
+        // --- INTEGRATION: BUY (Selection Sort & Location Filter) ---
         else if (current.text.contains("Buy")) {
-            System.out.println("[SYSTEM] Result is 'BUY'. Finding options...");
+            System.out.println("[SYSTEM] Result is 'BUY'. Mencari opsi di wilayah " + userLocation + "...");
             RestaurantManager restManager = new RestaurantManager();
 
-            System.out.println("[SYSTEM] Sorting restaurants by Price (Selection Sort)...");
-            restManager.sortByPrice();
-            restManager.showRestaurants();
+            // Panggil method showRestaurants DENGAN LOKASI PENGGUNA
+            restManager.showRestaurants(userLocation);
         }
 
         System.out.println("\n[SYSTEM] Good luck with your meal!");

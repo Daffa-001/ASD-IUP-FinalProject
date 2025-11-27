@@ -17,6 +17,12 @@ public class RecipeManager {
         recipeDatabase.add(new Recipe("Beef Stew", 120, "Hard", "Beef Chunks, Potatoes, Carrots, Broth, Onion"));
         recipeDatabase.add(new Recipe("Omelet", 10, "Easy", "Eggs, Salt, Pepper, Butter, Cheese"));
         recipeDatabase.add(new Recipe("Caesar Salad", 20, "Easy", "Romaine Lettuce, Croutons, Parmesan, Dressing"));
+        recipeDatabase.add(new Recipe("Spaghetti Bolognese", 35, "Medium", "Pasta, Tomato Sauce, Minced Beef, Cheese"));
+        recipeDatabase.add(new Recipe("Chicken Curry", 60, "Hard", "Chicken, Coconut Milk, Curry Paste, Potato"));
+        recipeDatabase.add(new Recipe("Avocado Smoothie", 5, "Easy", "Avocado, Milk, Sugar, Ice"));
+        recipeDatabase.add(new Recipe("Tuna Sandwich", 10, "Easy", "Bread, Tuna, Mayo, Lettuce, Tomato"));
+        recipeDatabase.add(new Recipe("Nasi Campur", 40, "Medium", "Rice, Shredded Chicken, Egg, Sambal, Vegetables"));
+        recipeDatabase.add(new Recipe("Soup Buntut", 90, "Hard", "Oxtail, Carrot, Potato, Spices, Celery"));
     }
 
     // --- ALGORITHM: MERGE SORT (Sorts by PrepTime) ---
