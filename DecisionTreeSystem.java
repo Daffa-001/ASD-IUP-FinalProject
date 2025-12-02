@@ -14,9 +14,9 @@ public class DecisionTreeSystem {
     // --- 1. METHOD INPUT LOKASI ---
     private void askUserLocation() {
         System.out.println("=========================================");
-        System.out.println("Selamat datang di Decision Helper!");
-        System.out.println("Di wilayah manakah Anda berada saat ini?");
-        System.out.println("(Pilihan: BARAT / PUSAT / TIMUR)");
+        System.out.println("WELCOME TO MOM'S KITCHEN HELPER");
+        System.out.println("\n[?] Which region do you live in?");
+        System.out.println("(Choices: WEST / CENTER / EAST)");
         System.out.print("> ");
         // userLocation diisi dari input Scanner
         userLocation = scanner.nextLine().trim().toUpperCase();
@@ -46,8 +46,8 @@ public class DecisionTreeSystem {
         askUserLocation();
 
         DecisionNode current = root;
-
-        System.out.println("\n=== MOM'S DECISION HELPER ===");
+        System.out.println("");
+        System.out.println("=========================================");
         System.out.println("Answer with 'yes' or 'no'.\n");
 
         // --- TREE TRAVERSAL ---
@@ -94,7 +94,7 @@ public class DecisionTreeSystem {
 
         // --- INTEGRATION: BUY (Selection Sort & Location Filter) ---
         else if (current.text.contains("Buy")) {
-            System.out.println("[SYSTEM] Result is 'BUY'. Mencari opsi di wilayah " + userLocation + "...");
+            System.out.println("[SYSTEM] Result is 'BUY'. Searching options in " + userLocation + " region...");
             RestaurantManager restManager = new RestaurantManager();
 
             // Panggil method showRestaurants DENGAN LOKASI PENGGUNA
