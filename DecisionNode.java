@@ -1,8 +1,8 @@
 public class DecisionNode {
-    String text;                // The question or the final decision
-    DecisionNode yesBranch;     // Where to go if user types "Yes"
-    DecisionNode noBranch;      // Where to go if user types "No"
-    boolean isLeaf;             // True if this is a final answer (End of tree)
+    String text;
+    DecisionNode yesBranch;
+    DecisionNode noBranch;
+    boolean isLeaf;
 
     // Constructor for a Question Node (Branch)
     public DecisionNode(String question, DecisionNode yes, DecisionNode no) {

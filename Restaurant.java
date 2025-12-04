@@ -2,9 +2,8 @@ public class Restaurant {
     String name;
     int priceLevel;
     double distanceKm;
-    String area; // <--- FIELD INI HARUS ADA
+    String area;
 
-    // <--- CONSTRUCTOR BARU INI ADALAH SOLUSI UNTUK ERROR ANDA --->
     public Restaurant(String name, int priceLevel, double distanceKm, String area) {
         this.name = name;
         this.priceLevel = priceLevel;
@@ -12,7 +11,6 @@ public class Restaurant {
         this.area = area;
     }
 
-    // toString() method harus tetap ada untuk menampilkan data
     @Override
     public String toString() {
         // Logic formatting

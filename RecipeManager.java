@@ -10,7 +10,6 @@ public class RecipeManager {
     }
 
     private void populateData() {
-        // --- EASY (EASY: 5-20 MINS) ---
         recipeDatabase.add(new Recipe("Instant Noodles", 5, "Easy", "Noodles, Seasoning Powder, Water, Egg"));
         recipeDatabase.add(new Recipe("Avocado Smoothie", 5, "Easy", "Avocado, Milk, Sugar, Ice"));
         recipeDatabase.add(new Recipe("Tuna Sandwich", 10, "Easy", "Bread, Tuna, Mayo, Lettuce, Tomato"));
@@ -50,7 +49,7 @@ public class RecipeManager {
         recipeDatabase.add(new Recipe("Mie Instan Kuah", 10, "Easy", "Mie, Bumbu, Air"));
         recipeDatabase.add(new Recipe("Kopi Hitam", 3, "Easy", "Kopi Bubuk, Gula, Air Panas"));
 
-        // --- MEDIUM (MEDIUM: 15-45 MINS) ---
+
         recipeDatabase.add(new Recipe("Fried Rice", 15, "Medium", "Rice, Soy Sauce, Egg, Garlic, Chili"));
         recipeDatabase.add(new Recipe("Caesar Salad", 20, "Medium", "Romaine Lettuce, Croutons, Parmesan, Dressing"));
         recipeDatabase.add(new Recipe("Grilled Chicken", 45, "Medium", "Chicken Breast, Lemon, Garlic, Spices"));
@@ -93,7 +92,7 @@ public class RecipeManager {
         recipeDatabase.add(new Recipe("Steak Daging Sapi (Tipis)", 40, "Medium", "Daging Sapi, Garam, Lada, Mentega"));
         recipeDatabase.add(new Recipe("Sop Iga Sapi Cepat", 45, "Medium", "Iga Sapi Rebus, Wortel, Bumbu Dasar"));
 
-        // --- HARD (HARD: 45+ MINS) ---
+
         recipeDatabase.add(new Recipe("Beef Stew", 120, "Hard", "Beef Chunks, Potatoes, Carrots, Broth, Onion"));
         recipeDatabase.add(new Recipe("Chicken Curry", 60, "Hard", "Chicken, Coconut Milk, Curry Paste, Potato"));
         recipeDatabase.add(new Recipe("Soup Buntut", 90, "Hard", "Oxtail, Carrot, Potato, Spices, Celery"));
@@ -127,7 +126,7 @@ public class RecipeManager {
         recipeDatabase.add(new Recipe("Gulai Kepala Ikan", 120, "Hard", "Kepala Ikan, Santan, Cabai"));
     }
 
-    // --- ALGORITHM: MERGE SORT (Sorts by PrepTime) ---
+    // ALGORITHM: MERGE SORT (Sorts by PrepTime)
     public void sortRecipesByTime() {
         recipeDatabase = mergeSort(recipeDatabase);
     }
@@ -160,7 +159,7 @@ public class RecipeManager {
         return merged;
     }
 
-    // --- ALGORITHM: LINEAR SEARCH (Filter by Name or Ingredient) ---
+    // ALGORITHM: LINEAR SEARCH (Filter by Name or Ingredient)
     public void filterRecipes(String keyword) {
         System.out.println("\n[SEARCH] Searching for recipes with: '" + keyword + "'...");
 
@@ -168,7 +167,7 @@ public class RecipeManager {
         boolean found = false;
 
         for (Recipe r : recipeDatabase) {
-            // Updated logic: Search in Name OR Ingredients
+            //Search in Name OR Ingredients
             if (r.name.toLowerCase().contains(keyword.toLowerCase()) ||
                     r.ingredients.toLowerCase().contains(keyword.toLowerCase())) {
                 results.add(r);

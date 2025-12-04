@@ -4,45 +4,40 @@ public class DecisionTreeSystem {
 
     DecisionNode root;
     Scanner scanner = new Scanner(System.in);
-    String userLocation; // <-- Pastikan field ini ada di sini!
+    String userLocation;
 
     public DecisionTreeSystem() {
-        // Panggil buildTree() di constructor untuk menginisialisasi root
         buildTree();
     }
 
-    // --- 1. METHOD INPUT LOKASI ---
     private void askUserLocation() {
         System.out.println("=========================================");
         System.out.println("WELCOME TO MOM'S KITCHEN HELPER");
         System.out.println("\n[?] Which region do you live in?");
         System.out.println("(Choices: WEST / CENTER / EAST)");
         System.out.print("> ");
-        // userLocation diisi dari input Scanner
         userLocation = scanner.nextLine().trim().toUpperCase();
     }
 
-    // --- 2. METHOD BUILD TREE (Harus terpisah) ---
     private void buildTree() {
-        // LEAF NODES (Final Answers)
+        // LEAF NODES
         DecisionNode buyFood = new DecisionNode("RECOMMENDATION: Buy Food (Delivery/Takeout)");
         DecisionNode cookComplex = new DecisionNode("RECOMMENDATION: Cook a Full Meal");
         DecisionNode cookSimple = new DecisionNode("RECOMMENDATION: Cook a Simple/Quick Meal");
         DecisionNode shopAndCook = new DecisionNode("RECOMMENDATION: Go Shopping & Cook");
 
-        // BRANCH NODES (Questions)
+        // BRANCH NODES
         DecisionNode marketOpen = new DecisionNode("Is the market/supermarket still open?", shopAndCook, buyFood);
         DecisionNode checkIngredients = new DecisionNode("Do you have ingredients in the fridge?", cookComplex, marketOpen);
         DecisionNode checkBudget = new DecisionNode("Is the budget tight right now?", cookSimple, buyFood);
         DecisionNode checkTime = new DecisionNode("Is it late at night (past 7 PM)?", buyFood, checkBudget);
 
-        // ROOT NODE: Inisialisasi root harus di dalam method ini
+        // ROOT NODE
         root = new DecisionNode("Is your energy level above 50% (Feeling fit)?", checkIngredients, checkTime);
     }
 
-    // --- 3. METHOD START PROCESS (MAIN CONTROLLER) ---
+    // METHOD START PROCESS (MAIN CONTROLLER)
     public void startDecisionProcess() {
-        // Panggil input lokasi di awal
         askUserLocation();
 
         DecisionNode current = root;
@@ -50,13 +45,12 @@ public class DecisionTreeSystem {
         System.out.println("=========================================");
         System.out.println("Answer with 'yes' or 'no'.\n");
 
-        // --- TREE TRAVERSAL ---
+        // TREE TRAVERSAL
         while (!current.isLeaf) {
             System.out.println("[?] " + current.text);
             System.out.print("> ");
             String input = scanner.nextLine().trim().toLowerCase();
 
-            // Check input
             if (input.startsWith("y")) {
                 current = current.yesBranch;
             } else if (input.startsWith("n")) {
@@ -70,7 +64,7 @@ public class DecisionTreeSystem {
         System.out.println(current.text);
         System.out.println("=================================");
 
-        // --- INTEGRATION: COOK (Merge Sort & Linear Search) ---
+        // COOK (Merge Sort & Linear Search)
         if (current.text.contains("Cook")) {
             System.out.println("\n[SYSTEM] Loading Recipe Database...");
             RecipeManager manager = new RecipeManager();
@@ -92,12 +86,11 @@ public class DecisionTreeSystem {
             }
         }
 
-        // --- INTEGRATION: BUY (Selection Sort & Location Filter) ---
+        // BUY (Selection Sort & Location Filter)
         else if (current.text.contains("Buy")) {
             System.out.println("[SYSTEM] Result is 'BUY'. Searching options in " + userLocation + " region...");
             RestaurantManager restManager = new RestaurantManager();
 
-            // Panggil method showRestaurants DENGAN LOKASI PENGGUNA
             restManager.showRestaurants(userLocation);
         }
 

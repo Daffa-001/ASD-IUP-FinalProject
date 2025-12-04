@@ -13,9 +13,6 @@ public class Recipe {
 
     @Override
     public String toString() {
-        // Formats the output:
-        // Name | Time | Difficulty
-        //    > Ingredients: ...
         return String.format("%-20s | %d mins | %-8s\n   > Ingredients: %s",
                 name, prepTime, difficulty, ingredients);
     }
