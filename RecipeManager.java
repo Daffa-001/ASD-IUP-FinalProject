@@ -126,7 +126,7 @@ public class RecipeManager {
         recipeDatabase.add(new Recipe("Gulai Kepala Ikan", 120, "Hard", "Kepala Ikan, Santan, Cabai"));
     }
 
-    // ALGORITHM: MERGE SORT (Sorts by PrepTime)
+    // MERGE SORT (Sorts by PrepTime)
     public void sortRecipesByTime() {
         recipeDatabase = mergeSort(recipeDatabase);
     }
@@ -159,7 +159,7 @@ public class RecipeManager {
         return merged;
     }
 
-    // ALGORITHM: LINEAR SEARCH (Filter by Name or Ingredient)
+    // LINEAR SEARCH (Filter by Name or Ingredient)
     public void filterRecipes(String keyword) {
         System.out.println("\n[SEARCH] Searching for recipes with: '" + keyword + "'...");
 

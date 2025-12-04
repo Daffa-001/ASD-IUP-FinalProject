@@ -2,7 +2,7 @@ public class Recipe {
     String name;
     int prepTime;       // in minutes
     String difficulty;
-    String ingredients; // <--- NEW FIELD
+    String ingredients;
 
     public Recipe(String name, int prepTime, String difficulty, String ingredients) {
         this.name = name;
