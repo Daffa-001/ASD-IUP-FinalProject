@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors; // Diperlukan untuk filtering data berdasarkan lokasi
+import java.util.stream.Collectors;
 
 public class RestaurantManager {
     List<Restaurant> restaurantList;
@@ -36,7 +36,7 @@ public class RestaurantManager {
     }
 
     // --- ALGORITHM: SELECTION SORT (Sort by Price: Low to High) ---
-    public void sortByPrice(List<Restaurant> listToSort) { // Modifikasi: menerima list
+    public void sortByPrice(List<Restaurant> listToSort) {
         int n = listToSort.size();
 
         for (int i = 0; i < n - 1; i++) {
@@ -54,34 +54,38 @@ public class RestaurantManager {
     }
 
     // --- MODIFIKASI: MENAMPILKAN RESTORAN BERDASARKAN WILAYAH ---
-    public void showRestaurants(String filterArea) {
+    public void showRestaurants(String filterAreaInput) {
 
-        // 1. Filter Data Berdasarkan Wilayah yang Diinput Pengguna
+        // 1. Declare final variable for lambda
+        final String areaToFilter = filterAreaInput;
+
+        // 2. Filter Data Berdasarkan Wilayah yang Diinput Pengguna
         List<Restaurant> filteredList = restaurantList.stream()
-                .filter(r -> r.area.equalsIgnoreCase(filterArea))
+                .filter(r -> r.area.equalsIgnoreCase(areaToFilter))
                 .collect(Collectors.toList());
+
+        // Use a separate variable for display purposes
+        String displayArea = areaToFilter;
 
         // JIKA WILAYAH TIDAK DITEMUKAN: Tampilkan data keseluruhan
         if (filteredList.isEmpty()) {
-            System.out.println("\n[SYSTEM] Wilayah '" + filterArea + "' tidak dikenali atau tidak memiliki data spesifik.");
+            System.out.println("\n[SYSTEM] Wilayah '" + areaToFilter + "' tidak dikenali atau tidak memiliki data spesifik.");
             System.out.println("[SYSTEM] Menampilkan data keseluruhan (Semua Wilayah) untuk perbandingan.");
             filteredList = restaurantList;
-            filterArea = "Semua Wilayah";
+            displayArea = "Semua Wilayah";
         }
 
-        // 2. Sorting data yang sudah difilter
+        // 3. Sorting data yang sudah difilter
         // Panggil Selection Sort pada filteredList
         sortByPrice(filteredList);
 
-        // 3. Tampilkan Hasil
-        System.out.println("\n--- RESTORAN DI WILAYAH " + filterArea.toUpperCase() + " (Sorted by Price) ---");
+        // 4. Tampilkan Hasil
+        System.out.println("\n--- RESTORAN DI WILAYAH " + displayArea.toUpperCase() + " (Sorted by Price) ---");
         System.out.println(String.format("%-20s | %-5s | %s", "NAME", "PRICE", "DISTANCE"));
         System.out.println("------------------------------------------------");
-        for (Restaurant r : filteredList) { // Loop melalui list yang sudah diurutkan
+        for (Restaurant r : filteredList) {
             System.out.println(r);
         }
         System.out.println("------------------------------------------------");
     }
-
-    // Catatan: Anda perlu memanggil showRestaurants(userLocation) di DecisionTreeSystem.
 }
