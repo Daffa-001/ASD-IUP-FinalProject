@@ -103,11 +103,10 @@ A search feature is available to filter the recipes after they have been sorted.
 * **Data Location:** All data is initialized via *hardcoded* `populateData()` methods within the Manager classes.
 
 # Presentation Files
-Initial Presentation: [Link to File/Slides]
 
-Progress Presentation: [Link to File/Slides]
+Progress Presentation: https://drive.google.com/file/d/1WReRZI3Md9MzPcFETbKvH0YxQT5AFNom/view?usp=drivesdk
 
-Final Presentation: [Link to File/Slides]
+Final Presentation: https://drive.google.com/file/d/14bW7G_TEyASRPRyc1ceV01pry7DuLK7e/view?usp=drivesdk
 
 # Related Repositories
 Other Groups' Projects
