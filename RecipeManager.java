@@ -159,27 +159,29 @@ public class RecipeManager {
         return merged;
     }
 
-    // LINEAR SEARCH (Filter by Name or Ingredient)
+    // linear search beneran (scan per index)
     public void filterRecipes(String keyword) {
-        System.out.println("\n[SEARCH] Searching for recipes with: '" + keyword + "'...");
+        System.out.println("\n[SEARCH] Linear Searching for: '" + keyword + "'...");
 
+        keyword = keyword.toLowerCase();
         List<Recipe> results = new ArrayList<>();
-        boolean found = false;
 
-        for (Recipe r : recipeDatabase) {
-            //Search in Name OR Ingredients
-            if (r.name.toLowerCase().contains(keyword.toLowerCase()) ||
-                    r.ingredients.toLowerCase().contains(keyword.toLowerCase())) {
-                results.add(r);
-                found = true;
+        for (int i = 0; i < recipeDatabase.size(); i++) {
+            Recipe r = recipeDatabase.get(i);
+
+            String name = r.name.toLowerCase();
+            String ing = r.ingredients.toLowerCase();
+
+            if (name.contains(keyword) || ing.contains(keyword)) {
+                results.add(r);  // collect matching recipe
             }
         }
 
-        if (found) {
+        if (results.isEmpty()) {
+            System.out.println("[!] No recipes found for '" + keyword + "'.");
+        } else {
             System.out.println("Found " + results.size() + " match(es):");
             printTable(results);
-        } else {
-            System.out.println("[!] No recipes found matching '" + keyword + "'.");
         }
     }
 
